@@ -1,0 +1,30 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.0'
+gem 'sqlite3'
+gem 'jquery-rails'
+gem 'capistrano'
+gem 'jquery-rails'
+gem "twitter-bootstrap-rails"
+gem 'devise'
+gem 'declarative_authorization'
+gem "paperclip", "~> 3.0"
+gem 'haml'
+gem 'haml-rails'
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'guard-rspec'
+  gem 'ruby_gntp'
+end
+group :production do
+  gem 'mysql2'
+end
