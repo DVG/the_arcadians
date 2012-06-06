@@ -1,0 +1,19 @@
+<div class="page-header"><h1>TheArcadians.net Community Forums</h1></div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Forum Name</th>
+      <th>Posts</th>
+      <th>Updated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forums.each do |forum| %>
+      <%= content_tag(:tr, forum, :id => "forum_#{forum.id}") do %>
+        <td class="forum_title"><%= link_to forum.title, forum_path(forum) %></td>
+        <td class='post_count'><%= forum.posts.count %></td>
+        <td class='forum_updated_at'><%= forum.updated_at %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

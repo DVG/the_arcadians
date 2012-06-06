@@ -5,12 +5,11 @@ gem 'sqlite3'
 gem 'jquery-rails'
 gem 'capistrano'
 gem 'jquery-rails'
-gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails", '2.0.7'
 gem 'devise'
 gem 'declarative_authorization'
+gem 'simple_form'
 gem "paperclip", "~> 3.0"
-gem 'haml'
-gem 'haml-rails'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
