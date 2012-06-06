@@ -14,4 +14,13 @@ describe User do
     user_two = build(:user, email: user_one.email)
     user_two.should_not be_valid
   end
+  it 'should require a username' do
+    user = build(:user, username: nil)
+    user.should_not be_valid
+  end
+  it 'should require a unique username' do
+    user = create(:user)
+    another_user = build(:user, username: user.username)
+    another_user.should_not be_valid
+  end
 end
