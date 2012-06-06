@@ -4,20 +4,7 @@ class ForumsController < ApplicationController
   end
   
   def show
-  end
-
-  def new
-  end
-
-  def edit
-  end
-
-  def create
-  end
-
-  def update
-  end
-
-  def destroy
+    @forum = Forum.find(params[:id])
+    @threads = @forum.threads
   end
 end

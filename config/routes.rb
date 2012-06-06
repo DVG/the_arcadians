@@ -1,6 +1,7 @@
 TheArcadians::Application.routes.draw do
   devise_for :users
-  resources :forums
-  resources :posts
+  resources :forums, :only => [:index, :show] do
+    resources :posts, :except => [:index]
+  end
   root :to => 'forums#index'
 end

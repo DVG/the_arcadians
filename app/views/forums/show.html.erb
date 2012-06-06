@@ -1,0 +1,24 @@
+<%- model_class = Post.new.class -%>
+<div class="page-header"><h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1></div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @threads.each do |post| %>
+      <tr>
+        <td><%= link_to post.id, forum_post_path(@forum, post) %></td>
+        <td><%= post.title %></td>
+        <td><%=l post.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New Thread",
+            new_forum_post_path(@forum),
+            :class => 'btn btn-primary' %>
