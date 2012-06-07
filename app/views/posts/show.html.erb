@@ -7,6 +7,5 @@
 <p><%= @post.body %></p>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              forum_posts_path(@forum), :class => 'btn'  %>
+  <%= link_to "Back", forum_path(@post.forum), :class => 'btn'  %>
 </div>

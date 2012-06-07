@@ -28,4 +28,10 @@ describe Post do
     thread = create(:thread, forum: forum)
     thread.forum.should eq forum
   end
+  it 'returns all posts in a given thread' do
+    thread = create(:thread)
+    reply = create(:reply, thread: thread, forum: thread.forum )
+    thread_two = create(:thread)
+    Post.thread_posts(thread).should eq [thread, reply]
+  end
 end

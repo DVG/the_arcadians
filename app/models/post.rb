@@ -6,4 +6,8 @@ class Post < ActiveRecord::Base
   def self.threads
     where(:parent_post_id => nil)
   end
+  
+  def self.thread_posts(thread)
+    where('id = ? OR parent_post_id = ?', thread.id, thread.id)
+  end
 end

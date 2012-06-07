@@ -1,9 +1,14 @@
 require 'spec_helper'
 
-describe "Forums" do
+describe "Posts" do
   before :each do
     @forum = create(:forum)
     @post = create(:thread, forum: @forum)
+    @user = create(:user)
+    visit new_user_session_path
+    fill_in "user_username", with: @user.username
+    fill_in "user_password", with: @user.password
+    click_button 'Sign in'
   end
   it 'displays the posts for a given forum on the post index page' do
     visit forum_path(@forum)
@@ -17,5 +22,23 @@ describe "Forums" do
     click_button 'Create Post'
     }.to change(Post, :count).by(1)
     current_path.should eq forum_post_path(@forum, Post.last)
+  end
+  it 'shows the post title in the table' do
+    visit forum_path(@forum)
+    page.should have_link "#{@post.title}"
+  end
+  it 'shows the creator of the thread' do
+    visit forum_path(@forum)
+    page.should have_link "#{@post.user.username}"
+  end
+  it 'sets the current user as the posts user' do
+    visit new_forum_post_path(@forum)
+    fill_in "post_title", with: 'Megathread'
+    fill_in "post_body", with: 'Sup dudes'
+    click_button 'Create Post'
+    post = Post.last
+    post.user.should eq @user
+    visit forum_path(@forum)
+    page.should have_link "#{post.user.username}"
   end
 end

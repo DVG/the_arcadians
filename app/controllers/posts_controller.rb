@@ -21,6 +21,7 @@ class PostsController < ApplicationController
     @forum = Forum.find(params[:forum_id])
     @post = Post.new(params[:post])
     @post.forum = @forum
+    @post.user = current_user
     if @post.save
       redirect_to forum_post_path(@forum, @post), notice: 'Post was successfully created.'
     else

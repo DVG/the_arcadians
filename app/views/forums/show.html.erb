@@ -3,16 +3,16 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Thread</th>
+      <th>Original Post</th>
+      <th>Created At</th>
     </tr>
   </thead>
   <tbody>
     <% @threads.each do |post| %>
       <tr>
-        <td><%= link_to post.id, forum_post_path(@forum, post) %></td>
-        <td><%= post.title %></td>
+        <td><%= link_to post.title, forum_post_path(@forum, post) %></td>
+        <td><%= link_to post.user.username, "#" %></td>
         <td><%=l post.created_at %></td>
       </tr>
     <% end %>
