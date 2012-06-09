@@ -43,4 +43,9 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to posts_url
   end
+  
+  def view_thread
+    @forum = Forum.find(params[:forum_id])
+    @posts = Post.thread_posts(params[:id])
+  end
 end

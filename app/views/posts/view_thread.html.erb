@@ -1,0 +1,10 @@
+<div class="page-object"><h1><%= @post.title %></h1></div>
+
+<% @posts.each do |post| %>
+  <%= content_tag_for(:li, post) do %>
+    <%= post.body %>
+  <% end %>
+<% end %>
+<div class="form-actions">
+  <%= link_to "Back", forum_path(@post.forum), :class => 'btn'  %>
+</div>
