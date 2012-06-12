@@ -3,8 +3,9 @@ require 'spec_helper'
 describe "Forums" do
   before :each do
     @forum = create(:forum)
-    @post = create(:thread, forum: @forum)
-    @reply = create(:reply, thread: @post, forum: @post.forum )
+    @post = create(:discussion, forum: @forum)
+    @reply = create(:post, discussion: @post )
+    @reply_two = create(:post, discussion: @post)
   end
   it 'shows a list of forums on the forums index page' do
     visit forums_path

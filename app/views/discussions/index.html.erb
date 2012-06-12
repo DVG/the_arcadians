@@ -1,0 +1,9 @@
+<div class="page-header"><h1><%= @forum.title %></h1></div>
+<%= link_to "New Thread", new_forum_discussion_path, :class => 'btn btn-primary' %>
+<ul>
+  <% @discussions.each do |d| %>
+    <%= content_tag_for(:li, d) do %>
+      <%= link_to d.title, discussion_posts_path(d) %>
+    <% end%>
+  <% end %>
+</ul>

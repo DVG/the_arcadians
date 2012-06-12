@@ -1,11 +1,13 @@
 TheArcadians::Application.routes.draw do
+  resources :discussions
+
   devise_for :users
   resources :forums, :only => [:index, :show] do
-    resources :posts, :except => [:index] do
-      member do
-        get 'view_thread'
-      end
-    end
+    resources :discussions, :only => [:index, :new, :create]
   end
+  resources :discussions, :except => [:index, :new, :create] do
+    resources :posts, :only => [:index]
+  end
+  resources :posts
   root :to => 'forums#index'
 end

@@ -10,28 +10,19 @@ describe Post do
     post.body.should eq "Didactically speaking, seminal evidence seams to explicate that your repudation for entropy supprts my theory of space-time synthesis. Of this I am irrefutably confident."
   end
   it 'should return a parent_post_id if a subsequent post in a thread' do
-    thread = FactoryGirl.create(:thread)
-    reply = FactoryGirl.create(:reply, thread: thread)
-    reply.thread.should eq thread
-  end
-  it 'should return nil for parent_post_id if the first post in the thread' do
-    thread = create(:thread)
-    thread.thread.should be_nil
+    thread = FactoryGirl.create(:discussion)
+    reply = FactoryGirl.create(:post, discussion: thread)
+    reply.discussion.should eq thread
   end
   it 'should belong to a user' do
     user = FactoryGirl.create(:user)
     post = FactoryGirl.create(:post, user: user)
     post.user.should eq user
   end
-  it 'should belong to a forum' do
+  it 'should have a forum by way of discussion' do
     forum = create(:forum)
-    thread = create(:thread, forum: forum)
-    thread.forum.should eq forum
-  end
-  it 'returns all posts in a given thread' do
-    thread = create(:thread)
-    reply = create(:reply, thread: thread, forum: thread.forum )
-    thread_two = create(:thread)
-    Post.thread_posts(thread).should eq [thread, reply]
+    discussion = create(:discussion, forum: forum)
+    post = create(:post, discussion: discussion)
+    post.forum.should eq forum
   end
 end

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :posts
+  has_many :discussions
   validates_uniqueness_of :email
   validates_presence_of :username
   validates_uniqueness_of :username

@@ -23,6 +23,7 @@ group :test do
   gem 'database_cleaner'
   gem 'guard-rspec'
   gem 'ruby_gntp'
+  gem 'timecop'
 end
 group :production do
   gem 'mysql2'

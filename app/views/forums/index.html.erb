@@ -10,8 +10,8 @@
   <tbody>
     <% @forums.each do |forum| %>
       <%= content_tag(:tr, forum, :id => "forum_#{forum.id}") do %>
-        <td class="forum_title"><%= link_to forum.title, forum_path(forum) %></td>
-        <td class='post_count'><%= forum.posts.count %></td>
+        <td class="forum_title"><%= link_to forum.title, forum_discussions_path(forum) %></td>
+        <td class='post_count'><%= forum.posts.size %></td>
         <td class='forum_updated_at'><%= forum.updated_at %></td>
       <% end %>
     <% end %>

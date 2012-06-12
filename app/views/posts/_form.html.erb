@@ -1,9 +1,7 @@
-<%= simple_form_for [@forum, @post], :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @post, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :title, :input_html => {:class => 'span9'} %>
   <%= f.input :body, :input_html => {:class => 'span9'} %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                forum_posts_path(@forum), :class => 'btn' %>
   </div>
 <% end %>

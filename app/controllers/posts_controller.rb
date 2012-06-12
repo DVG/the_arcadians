@@ -1,7 +1,7 @@
-class PostsController < ApplicationController
+class PostsController < ApplicationController  
   def index
-    @forum = Forum.find(params[:forum_id])
-    @threads = @forum.threads
+    @discussion = Discussion.find(params[:discussion_id])
+    @posts = @discussion.posts
   end
   
   def show
@@ -9,7 +9,6 @@ class PostsController < ApplicationController
   end
 
   def new
-    @forum = Forum.find(params[:forum_id])
     @post = Post.new
   end
 
@@ -18,12 +17,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @forum = Forum.find(params[:forum_id])
     @post = Post.new(params[:post])
-    @post.forum = @forum
     @post.user = current_user
+    #@post.discussion.touch!
     if @post.save
-      redirect_to forum_post_path(@forum, @post), notice: 'Post was successfully created.'
+      redirect_to post_path(@post), notice: 'Post was successfully created.'
     else
       render action: "new"
     end
