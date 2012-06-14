@@ -36,6 +36,7 @@ describe Discussion do
     Timecop.travel(new_time)
     post = create(:post, discussion: discussion)
     discussion.updated_at.utc.to_s.should eq new_time.utc.to_s
+    Timecop.return
   end
   it 'returns a list of discussions that were posted to in the last 24 hours' do
     #Freeze time at June 01, 2012 at noon
@@ -48,5 +49,6 @@ describe Discussion do
     new_post = create(:post, discussion: new_discussion)
     Discussion.active.should include new_discussion
     Discussion.active.should_not include old_discussion
+    Timecop.return
   end
 end

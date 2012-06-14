@@ -1,3 +1,22 @@
 // Place all the styles related to the discussions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.short_text_area {
+	height: 200px;
+}
+
+.author {
+	font-weight: bold;
+}
+
+.author_cell {
+	text-align: center;
+}
+
+.post-header {
+	height: 25px;
+}
+
+.post-body {
+}

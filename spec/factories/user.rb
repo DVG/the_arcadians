@@ -10,5 +10,6 @@ FactoryGirl.define do
     username
     password 'secret'
     password_confirmation { |u| u.password }
+    role
   end
 end

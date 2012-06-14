@@ -1,9 +1,27 @@
 <div class="page-header"><h1 id="discussion_title"><%= @discussion.title %></h1></div>
 
-<ul>
-  <% @discussion.posts.each do |post| %>
-    <%= content_tag_for(:li, post) do %>
-      <%= post.body %>
-    <% end %>
+<%= link_to "Reply", new_discussion_post_path(@discussion), :class => 'btn btn-primary' %>
+<div id="discussion_posts">
+  <table class="table table-striped table-bordered" id="discussion_posts_table">
+    <thead>
+      <tr>
+        <th width="15%">Author</th>
+        <th>Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @discussion.posts.each do |post| %>
+       <%= render post %>
+      <% end %>
+    </tbody>
+  <table>
+</div>
+<div id="quick_reply">
+  <div class="page-header"><h3>Quick Reply</h3></div>
+  <%= form_for [@discussion, @post], remote: true, :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.text_area :body, :class => 'span12 short_text_area' %>
+    <div class="form-actions">
+      <%= f.submit 'Post Reply', :class => 'btn btn-primary' %>
+    </div>
   <% end %>
-</ul>
+</div>

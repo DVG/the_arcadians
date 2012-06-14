@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe "Posts" do
   before :each do
-    @forum = create(:forum)
-    @post = create(:discussion, forum: @forum)
-    @reply = create(:post, discussion: @discussion)
-    @reply_two = create(:post, discussion: @discussion)
     @user = create(:user)
+    @forum = create(:forum)
+    @post = create(:discussion, forum: @forum, user: @user)
+    @reply = create(:post, discussion: @post, user: @user)
+    @reply_two = create(:post, discussion: @post)
     visit new_user_session_path
     fill_in "user_username", with: @user.username
     fill_in "user_password", with: @user.password
@@ -58,9 +58,27 @@ describe "Posts" do
     end
   end
   context 'replies' do
-    it 'has a quick reply section'
-    it 'allows a user to reply via the reply action'
-    it 'allows a user to make a quick reply'
+    it 'has a quick reply section' do
+      visit discussion_posts_path(@post)
+      page.should have_selector "div#quick_reply"
+    end
+    it 'allows a user to reply via the reply action' do
+      visit discussion_posts_path(@post)
+      click_link "Reply"
+      fill_in 'post_body', :with => 'Avada Kedavra!'
+      click_button "Post Reply"
+      within "#post_#{@post.posts.last.id}" do
+       page.should have_content 'Avada Kedavra!'
+      end
+    end
+    it 'allows a user to make a quick reply' do
+      visit discussion_posts_path(@post)
+      fill_in "post_body", :with => "Quick Reply"
+      click_button 'Post Reply'
+      within "#post_#{@post.posts.last.id}" do
+        page.should have_content 'Quick Reply'
+      end
+    end
   end
   context 'pagination' do
     it 'displays 50 posts per page'
@@ -81,9 +99,28 @@ describe "Posts" do
     context 'Jailed' do
       it 'displays a badge titled \'Jailed\' under the user\'s name'
     end
+    context 'Buttons' do
+      it 'has a quote button'
+      it 'has an edit button' do
+        visit discussion_posts_path(@post)
+        within "#post_#{@reply.id}" do
+          page.should have_link "Edit"
+        end
+      end
+      it 'has a delete button' do
+        visit discussion_posts_path(@post)
+        within "#post_#{@reply.id}" do
+          page.should have_link "X"
+        end
+      end
+      it 'has a report button'
+    end
   end
   context 'Quote'
   context 'Edit'
-  context 'Delete'
+  context 'Delete' do
+    it 'destroys the post'
+    it 'fades out the post'
+  end
   context 'Report'
 end

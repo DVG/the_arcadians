@@ -15,7 +15,10 @@ class DiscussionsController < ApplicationController
     @discussion = Discussion.new do |d|
       d.title = params[:discussion][:title]
       d.forum = @forum
-      d.posts << Post.new(params[:discussion][:post])
+      post = Post.new
+      post.body = params[:discussion][:post][:body]
+      post.user = current_user
+      d.posts << post
     end
     if @discussion.save
       redirect_to discussion_posts_path(@discussion), notice: 'Post was successfully created.'

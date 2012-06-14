@@ -1,0 +1,24 @@
+<%= content_tag_for(:tr, post) do %>
+  <td>
+   <div class="author_cell">
+     <span class="author"><%= post.user.username %></span><br />
+   </div>
+  </td>
+  <td>
+    <div class="post-header">
+      <div class="post-title">
+      </div>
+      <div class="pull-right">
+        <%= link_to "Edit", edit_discussion_post_path(post.discussion, post), :class => "btn btn-mini" %>
+        <%= link_to 'X', discussion_post_path(post.discussion, post),
+                    :method => :delete,
+                    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default =>  'Are you sure?')),
+                    :class => 'btn btn-mini btn-danger'  %>
+      </div>
+    </div>
+    <div class="post-body">
+      <% #escape HTML on post.body, then convert BBCode to HTML and send the result to the browser as HTML %>
+      <%= post.body.bbcode_to_html.html_safe %>
+    </div>
+  </td>
+<% end %>

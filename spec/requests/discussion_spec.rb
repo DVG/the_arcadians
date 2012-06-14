@@ -5,6 +5,10 @@ describe 'discussions' do
     @user = create(:user)
     @forum = create(:forum)
     @discussion = create(:discussion, forum: @forum)
+    visit new_user_session_path
+    fill_in 'user_username', with: @user.username
+    fill_in 'user_password', with: @user.password
+    click_button 'Sign in'
   end
   it 'renders the index action as a nested resource under forum' do
     visit forum_discussions_path(@forum)

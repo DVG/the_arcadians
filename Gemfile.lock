@@ -166,6 +166,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-bbcode (0.0.2)
     ruby_gntp (0.3.4)
     rubyzip (0.9.8)
     sass (3.1.19)
@@ -227,6 +228,7 @@ DEPENDENCIES
   paperclip (~> 3.0)
   rails (= 3.2.0)
   rspec-rails
+  ruby-bbcode
   ruby_gntp
   sass-rails (~> 3.2.3)
   simple_form

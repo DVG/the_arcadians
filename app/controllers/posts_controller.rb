@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   def index
     @discussion = Discussion.find(params[:discussion_id])
     @posts = @discussion.posts
+    @post = Post.new
   end
   
   def show
@@ -9,28 +10,33 @@ class PostsController < ApplicationController
   end
 
   def new
+    @discussion = Discussion.find(params[:discussion_id])
     @post = Post.new
   end
 
   def edit
     @post = Post.find(params[:id])
+    @discussion = @post.discussion
   end
 
   def create
     @post = Post.new(params[:post])
     @post.user = current_user
-    #@post.discussion.touch!
-    if @post.save
-      redirect_to post_path(@post), notice: 'Post was successfully created.'
-    else
-      render action: "new"
+    @post.discussion = Discussion.find(params[:discussion_id])
+    respond_to do |format|
+      if @post.save!
+        format.js
+        format.html { redirect_to discussion_posts_path(@post.discussion), notice: 'Post was successfully created.' }
+      else
+        format.html { render :action => "new" }
+      end
     end
   end
 
   def update
     @post = Post.find(params[:id])
       if @post.update_attributes(params[:post])
-        redirect_to @post, notice: 'Post was successfully updated.'
+        redirect_to discussion_posts_path(@post.discussion), notice: 'Post was successfully updated.'
       else
         render action: "edit"
       end
@@ -40,10 +46,5 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_url
-  end
-  
-  def view_thread
-    @forum = Forum.find(params[:forum_id])
-    @posts = Post.thread_posts(params[:id])
   end
 end
