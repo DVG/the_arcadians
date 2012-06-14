@@ -13,7 +13,8 @@
         <%= link_to 'X', discussion_post_path(post.discussion, post),
                     :method => :delete,
                     :confirm => t('.confirm', :default => t("helpers.links.confirm", :default =>  'Are you sure?')),
-                    :class => 'btn btn-mini btn-danger'  %>
+                    :class => 'btn btn-mini btn-danger',
+                    :remote => true  %>
       </div>
     </div>
     <div class="post-body">

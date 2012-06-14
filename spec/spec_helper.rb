@@ -10,9 +10,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.before(:suite) do
       DatabaseCleaner.strategy = :truncation
-      DatabaseCleaner.clean_with(:truncation)
   end
-
   config.before(:each) do
     DatabaseCleaner.start
   end
@@ -21,7 +19,3 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome)
-end
-Capybara.javascript_driver = :chrome

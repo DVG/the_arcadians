@@ -20,9 +20,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
-    @post.user = current_user
-    @post.discussion = Discussion.find(params[:discussion_id])
+    @discussion = Discussion.find(params[:discussion_id])
+    @post = Post.new do |p|
+      p.body = params[:post][:body]
+      p.discussion = @discussion
+      p.user = current_user
+    end
     respond_to do |format|
       if @post.save!
         format.js
@@ -44,7 +47,11 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    @discussion = @post.discussion
     @post.destroy
-    redirect_to posts_url
+    respond_to do |format|
+      format.js
+      format.html { redirect_to discussion_posts_path(@discussion) }
+    end    
   end
 end

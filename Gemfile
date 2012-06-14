@@ -26,6 +26,7 @@ group :test do
   gem 'ruby_gntp'
   gem 'timecop'
 end
+gem 'debugger', group: [:development, :test]
 group :production do
   gem 'mysql2'
 end
