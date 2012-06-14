@@ -136,7 +136,6 @@ describe "Posts" do
   context 'Edit'
   
   describe 'Delete', js: true do
-    
     it 'destroys the post' do
       visit discussion_posts_path(@discussion)
       expect {
@@ -148,7 +147,6 @@ describe "Posts" do
       alert.accept
       }.to change(Post, :count).by(-1)
     end #destroy the post
-    
     it 'the discussion should remain intact' do
       visit discussion_posts_path(@discussion)
       within "#post_#{@post_two.id}" do
@@ -158,8 +156,7 @@ describe "Posts" do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       @discussion.should_not be_nil
-    end # discussio should remain intact
-    
+    end # discussion should remain intact
     it 'should slide up the post' do
       visit discussion_posts_path(@discussion)
       within "#post_#{@post_two.id}" do
