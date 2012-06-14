@@ -8,10 +8,12 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
-  config.before(:suite) do
-      DatabaseCleaner.strategy = :truncation
-  end
   config.before(:each) do
+    if Capybara.current_driver == :rack_test
+      DatabaseCleaner.strategy = :transaction
+    else
+      DatabaseCleaner.strategy = :truncation
+    end
     DatabaseCleaner.start
   end
 
