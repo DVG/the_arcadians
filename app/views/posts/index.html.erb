@@ -18,6 +18,11 @@
 </div>
 <div id="quick_reply">
   <div class="page-header"><h3>Quick Reply</h3></div>
+  <div id ="toolbar" class="toolbar">
+    <div class="btn-group">
+      <%= link_to 'b', '#', :class => 'btn', :id => 'bold_button' %>
+    </div>
+  </div>
   <%= form_for [@discussion, @post], remote: true, :html => { :class => 'form-horizontal' } do |f| %>
     <%= f.text_area :body, :class => 'span12 short_text_area' %>
     <div class="form-actions">

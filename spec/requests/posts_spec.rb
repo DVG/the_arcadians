@@ -192,9 +192,42 @@ describe "Posts" do
       sleep 1
       find("#post_#{@post_two.id}").should_not be_visible
     end #should slide up the post
-    
   end
   
   context 'Report'
-  context 'Toolbar'
+  context 'Toolbar', js: true do
+    context 'quick reply' do
+      describe 'bold' do
+        it 'shows a bold button' do
+          visit discussion_posts_path(@discussion)
+          within '#quick_reply' do
+            within "#toolbar" do
+              page.should have_link 'b'
+            end
+          end
+        end #it
+        it 'inserts [b] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          within '#quick_reply' do
+            within "#toolbar" do
+              click_link 'b'
+            end
+          end
+          sleep 1
+          find("#post_body")[:value].should match /[b]*.[\/b]/
+        end
+        it 'wraps the selected text in [b] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within '#quick_reply' do
+            within "#toolbar" do
+              click_link 'b'
+            end
+          end
+          find("#post_body")[:value].should eq "[b]Hello World[/b]"
+        end
+      end #bold
+    end #quick reply
+  end #toolbar
 end
