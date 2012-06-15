@@ -10,3 +10,7 @@ wrapText = (elementID, openTag, closeTag) ->
 $('#bold_button').click (event) ->
  wrapText('post_body', '[b]', '[/b]')
  event.preventDefault()
+ 
+$('#italics_button').click (event) ->
+  wrapText('post_body', '[i]', '[/i]')
+  event.preventDefault()

@@ -209,7 +209,6 @@ describe "Posts" do
         it 'inserts [b] tags into the text area' do
           visit discussion_posts_path(@discussion)
           click_link 'b'
-          sleep 1
           find("#post_body")[:value].should match /[b]*.[\/b]/
         end
         it 'wraps the selected text in [b] tags' do
@@ -220,6 +219,28 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[b]Hello World[/b]"
         end
       end #bold
+      describe 'italics' do
+        it 'shows an italics button' do
+          visit discussion_posts_path(@discussion)
+          within '#quick_reply' do
+            within "#toolbar" do
+              page.should have_link 'i'
+            end
+          end
+        end
+        it 'inserts [i] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          click_link 'i'
+          find("#post_body")[:value].should match /[i]*.[\/i]/
+        end
+        it 'wraps the selected text in [i] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'i'
+          find("#post_body")[:value].should eq "[i]Hello World[/i]"
+        end
+      end #italics
     end #quick reply
     
     context 'New Thread' do
@@ -243,6 +264,28 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[b]Hello World[/b]"
         end
       end # bold
+      
+      describe 'italics' do
+        it 'shows an italics button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'i'
+          end
+        end
+        it 'inserts [i] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          click_link 'i'
+          find("#post_body")[:value].should match /[i]*.[\/i]/
+        end
+        it 'wraps the selected text in [i] tags' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'i'
+          find("#post_body")[:value].should eq "[i]Hello World[/i]"
+        end
+      end #italics
+      
     end # new thread
     
     context 'Normal Reply' do
@@ -266,6 +309,29 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[b]Hello World[/b]"
         end
       end # bold
-    end
+      
+      describe 'italics' do
+        it 'shows an italics button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'i'
+          end
+        end
+        it 'inserts [i] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          click_link 'i'
+          find("#post_body")[:value].should match /[i]*.[\/i]/
+        end
+        it 'wraps the selected text in [i] tags' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'i'
+          find("#post_body")[:value].should eq "[i]Hello World[/i]"
+        end
+      end #italics
+    end # reply
+    
+    
   end #toolbar
 end
