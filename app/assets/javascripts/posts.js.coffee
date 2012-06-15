@@ -14,3 +14,7 @@ $('#bold_button').click (event) ->
 $('#italics_button').click (event) ->
   wrapText('post_body', '[i]', '[/i]')
   event.preventDefault()
+  
+$('#underline_button').click (event) ->
+  wrapText('post_body', '[u]', '[/u]')
+  event.preventDefault()

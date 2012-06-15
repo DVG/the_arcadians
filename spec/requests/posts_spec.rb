@@ -241,6 +241,29 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[i]Hello World[/i]"
         end
       end #italics
+      
+      describe 'underline' do
+        it 'shows an underline button' do
+          visit discussion_posts_path(@discussion)
+          within '#quick_reply' do
+            within "#toolbar" do
+              page.should have_link 'u'
+            end
+          end
+        end
+        it 'inserts [u] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          click_link 'u'
+          find("#post_body")[:value].should match /[u]*.[\/u]/
+        end
+        it 'wraps the selected text in [u] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'u'
+          find("#post_body")[:value].should eq "[u]Hello World[/u]"
+        end
+      end #underline
     end #quick reply
     
     context 'New Thread' do
@@ -286,6 +309,27 @@ describe "Posts" do
         end
       end #italics
       
+      describe 'underline' do
+        it 'shows an underline button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'u'
+          end
+        end
+        it 'inserts [u] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          click_link 'u'
+          find("#post_body")[:value].should match /[u]*.[\/u]/
+        end
+        it 'wraps the selected text in [u] tags' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'u'
+          find("#post_body")[:value].should eq "[u]Hello World[/u]"
+        end
+      end #underline
+      
     end # new thread
     
     context 'Normal Reply' do
@@ -330,6 +374,28 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[i]Hello World[/i]"
         end
       end #italics
+    
+      describe 'underline' do
+        it 'shows an underline button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'u'
+          end
+        end
+        it 'inserts [u] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          click_link 'u'
+          find("#post_body")[:value].should match /[u]*.[\/u]/
+        end
+        it 'wraps the selected text in [u] tags' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'u'
+          find("#post_body")[:value].should eq "[u]Hello World[/u]"
+        end
+      end #underline
+    
     end # reply
     
     
