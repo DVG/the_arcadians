@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe "Posts" do
   before :each do
-    # Each test will have a basic thread:
-    # A user who creates the posts in @user who is logged in
-    # A forum which holds the discussion in @forum
-    # A discussion which holds the psots in @discussion
-    # Two posts in the discussion in @post and @post_two
     @user = create(:user)
     @forum = create(:forum)
     @discussion = create(:discussion, forum: @forum, user: @user)
@@ -131,7 +126,36 @@ describe "Posts" do
     end
   end
   
-  context 'Quote'
+  context 'Quote', js: true do
+    it "has a quote button" do
+      visit discussion_posts_path(@discussion)
+      within "#post_#{@post.id}" do
+         page.should have_link 'Quote'
+      end
+    end
+    it 'puts the post content in the quick-reply form' do
+      visit discussion_posts_path(@discussion)
+      within "#post_#{@post.id}" do
+         click_link 'Quote'
+      end
+      find("#post_body")[:value].should include @post.body
+    end
+    it 'wraps the post content in [quote] tags' do
+      visit discussion_posts_path(@discussion)
+      within "#post_#{@post.id}" do
+         click_link 'Quote'
+      end
+      find("#post_body")[:value].should include "[quote]#{@post.body}[/quote]"
+    end
+    it 'inserts two carriage returns after the post content.' do
+      visit discussion_posts_path(@discussion)
+      within "#post_#{@post.id}" do
+         click_link 'Quote'
+      end
+      find("#post_body")[:value].should include "\n\n"
+    end
+    it 'gives focus to the post_body textarea'
+  end
   
   context 'Edit'
   
@@ -172,4 +196,5 @@ describe "Posts" do
   end
   
   context 'Report'
+  context 'Toolbar'
 end

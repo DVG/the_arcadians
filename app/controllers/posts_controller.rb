@@ -15,7 +15,9 @@ class PostsController < ApplicationController
   end
 
   def edit
+    coder = HTMLEntities.new
     @post = Post.find(params[:id])
+    @post.body = coder.decode(@post.body)
     @discussion = @post.discussion
   end
 
@@ -53,5 +55,13 @@ class PostsController < ApplicationController
       format.js
       format.html { redirect_to discussion_posts_path(@discussion) }
     end    
+  end
+  
+  def quote
+    @post = Post.find(params[:id])
+    respond_to do |format|
+      format.js
+      format.html { redirect_to discussion_posts_path(@post.discussion) }
+    end
   end
 end

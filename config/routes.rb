@@ -6,6 +6,10 @@ TheArcadians::Application.routes.draw do
   resources :discussions, :except => [:index, :new, :create] do
     resources :posts, :except => [:show]
   end
-  resources :posts, :only => [:show]
+  resources :posts, :only => [:show] do
+    member do
+      get 'quote'
+    end
+  end
   root :to => 'forums#index'
 end
