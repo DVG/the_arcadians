@@ -264,6 +264,31 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[u]Hello World[/u]"
         end
       end #underline
+      
+      describe 'Quote' do
+        it 'shows a quote button' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'quote'
+          end
+        end
+        it 'inserts [quote] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should match /[quote]*.[\/quote]/
+        end
+        it 'wraps the selected text in [quote] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
+        end
+      end # quote
     end #quick reply
     
     context 'New Thread' do
@@ -330,6 +355,31 @@ describe "Posts" do
         end
       end #underline
       
+      describe 'Quote' do
+        it 'shows a quote button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'quote'
+          end
+        end
+        it 'inserts [quote] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should match /[quote]*.[\/quote]/
+        end
+        it 'wraps the selected text in [quote] tags' do
+         visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
+        end
+      end # quote
+      
     end # new thread
     
     context 'Normal Reply' do
@@ -395,6 +445,31 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[u]Hello World[/u]"
         end
       end #underline
+      
+      describe 'Quote' do
+        it 'shows a quote button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'quote'
+          end
+        end
+        it 'inserts [quote] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should match /[quote]*.[\/quote]/
+        end
+        it 'wraps the selected text in [quote] tags' do
+         visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'quote'
+          end
+          find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
+        end
+      end # quote
     
     end # reply
     
