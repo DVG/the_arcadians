@@ -244,5 +244,28 @@ describe "Posts" do
         end
       end # bold
     end # new thread
+    
+    context 'Normal Reply' do
+      describe 'bold' do
+        it 'shows a bold button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'b'
+          end
+        end
+        it 'inserts [b] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          click_link 'b'
+          find("#post_body")[:value].should match /[b]*.[\/b]/
+        end
+        it 'wraps the selected text in [b] tags' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'b'
+          find("#post_body")[:value].should eq "[b]Hello World[/b]"
+        end
+      end # bold
+    end
   end #toolbar
 end
