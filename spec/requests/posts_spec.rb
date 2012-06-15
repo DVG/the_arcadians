@@ -33,7 +33,7 @@ describe "Posts" do
       visit forum_discussions_path(@forum)
       click_link "New Thread"
       fill_in 'discussion_title', :with => 'New Post'
-      fill_in 'discussion_post_body', :with => 'Hello World'
+      fill_in 'post_body', :with => 'Hello World'
       click_button 'Create Post'
       discussion = Discussion.last
       post = discussion.posts.first
@@ -46,7 +46,7 @@ describe "Posts" do
       visit forum_discussions_path(@forum)
       click_link "New Thread"
       fill_in 'discussion_title', :with => 'New Post'
-      fill_in 'discussion_post_body', :with => 'Hello World'
+      fill_in 'post_body', :with => 'Hello World'
       click_button 'Create Post'
       current_path.should eq discussion_posts_path(Discussion.last)
     end
@@ -54,7 +54,7 @@ describe "Posts" do
       visit forum_discussions_path(@forum)
       click_link "New Thread"
       fill_in 'discussion_title', :with => 'New Post'
-      fill_in 'discussion_post_body', :with => 'Hello World'
+      fill_in 'post_body', :with => 'Hello World'
       click_button 'Create Post'
       discussion = Discussion.last
       page.should have_selector "#post_#{discussion.posts.first.id}"
@@ -208,11 +208,7 @@ describe "Posts" do
         end #it
         it 'inserts [b] tags into the text area' do
           visit discussion_posts_path(@discussion)
-          within '#quick_reply' do
-            within "#toolbar" do
-              click_link 'b'
-            end
-          end
+          click_link 'b'
           sleep 1
           find("#post_body")[:value].should match /[b]*.[\/b]/
         end
@@ -220,14 +216,33 @@ describe "Posts" do
           visit discussion_posts_path(@discussion)
           fill_in "post_body", with: 'Hello World'
           page.execute_script %Q{ $('#post_body').select() } 
-          within '#quick_reply' do
-            within "#toolbar" do
-              click_link 'b'
-            end
-          end
+          click_link 'b'
           find("#post_body")[:value].should eq "[b]Hello World[/b]"
         end
       end #bold
     end #quick reply
+    
+    context 'New Thread' do
+      describe 'bold' do
+        it 'shows a bold button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'b'
+          end
+        end
+        it 'inserts [b] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          click_link 'b'
+          find("#post_body")[:value].should match /[b]*.[\/b]/
+        end
+        it 'wraps the selected text in [b] tags' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          click_link 'b'
+          find("#post_body")[:value].should eq "[b]Hello World[/b]"
+        end
+      end # bold
+    end # new thread
   end #toolbar
 end

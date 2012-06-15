@@ -1,7 +1,7 @@
 <%= simple_form_for [@forum, @discussion], :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :title, :input_html => {:class => 'span9'} %>
   <%= f.simple_fields_for Post.new do |posts_form| %>
-    <%= posts_form.input :body, :input_html => {:class => 'span9'} %>
+    <%= posts_form.input :body, :input_html => {:class => 'span9', :id => 'post_body' } %>
   <% end %>
   <div class="form-actions">
     <%= f.submit 'Create Post', :class => 'btn-primary' %>
