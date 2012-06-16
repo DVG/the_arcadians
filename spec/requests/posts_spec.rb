@@ -289,6 +289,85 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
         end
       end # quote
+      
+      describe 'code' do
+        it 'shows a quote button' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'code'
+          end
+        end
+        it 'inserts [code] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should match /[code]*.[\/code]/
+        end
+        it 'wraps the selected text in [code] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should eq "[code]Hello World[/code]"
+        end
+      end # code
+      
+      describe 'list' do
+       it 'shows a list button' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'list'
+          end
+        end
+        it 'inserts [list] tags into the text area' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should match /[list]*.[\/list]/
+        end
+        it 'wraps the selected text in [list] tags' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should eq "[list]Hello World[/list]"
+        end
+      end #list
+      describe 'list item' do
+        it 'shows a list item button' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            page.should have_link '[*]'
+          end
+        end
+        it 'inserts a [*]' do
+          visit discussion_posts_path(@discussion)
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should match /[\*]/
+        end
+        it 'puts a [*] before the selected text' do
+          visit discussion_posts_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should eq "[*] Hello World"
+        end
+      end #list item
+      describe 'img'
+      describe 'url'
+      describe 'bigimg'
+      describe 'spoiler'
+      
     end #quick reply
     
     context 'New Thread' do
@@ -370,7 +449,7 @@ describe "Posts" do
           find("#post_body")[:value].should match /[quote]*.[\/quote]/
         end
         it 'wraps the selected text in [quote] tags' do
-         visit new_forum_discussion_path(@forum)
+          visit new_forum_discussion_path(@forum)
           fill_in "post_body", with: 'Hello World'
           page.execute_script %Q{ $('#post_body').select() } 
           within "#toolbar" do
@@ -379,6 +458,84 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
         end
       end # quote
+      
+      describe 'code' do
+        it 'shows a quote button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'code'
+          end
+        end
+        it 'inserts [code] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should match /[code]*.[\/code]/
+        end
+        it 'wraps the selected text in [code] tags' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should eq "[code]Hello World[/code]"
+        end
+      end # code
+      
+      describe 'list' do
+       it 'shows a list button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link 'list'
+          end
+        end
+        it 'inserts [list] tags into the text area' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should match /[list]*.[\/list]/
+        end
+        it 'wraps the selected text in [list] tags' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should eq "[list]Hello World[/list]"
+        end
+      end #list
+      describe 'list item' do
+        it 'shows a list item button' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            page.should have_link '[*]'
+          end
+        end
+        it 'inserts a [*]' do
+          visit new_forum_discussion_path(@forum)
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should match /[\*]/
+        end
+        it 'puts a [*] before the selected text' do
+          visit new_forum_discussion_path(@forum)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should eq "[*] Hello World"
+        end
+      end #list item
+      describe 'img'
+      describe 'url'
+      describe 'bigimg'
+      describe 'spoiler'
       
     end # new thread
     
@@ -470,9 +627,84 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[quote]Hello World[/quote]"
         end
       end # quote
+      
+      describe 'code' do
+        it 'shows a quote button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'code'
+          end
+        end
+        it 'inserts [code] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should match /[code]*.[\/code]/
+        end
+        it 'wraps the selected text in [code] tags' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'code'
+          end
+          find("#post_body")[:value].should eq "[code]Hello World[/code]"
+        end
+      end # code
     
+      describe 'list' do
+       it 'shows a list button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link 'list'
+          end
+        end
+        it 'inserts [list] tags into the text area' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should match /[list]*.[\/list]/
+        end
+        it 'wraps the selected text in [list] tags' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link 'list'
+          end
+          find("#post_body")[:value].should eq "[list]Hello World[/list]"
+        end
+      end #list
+      describe 'list item' do
+        it 'shows a list item button' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            page.should have_link '[*]'
+          end
+        end
+        it 'inserts a [*]' do
+          visit new_discussion_post_path(@discussion)
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should match /[\*]/
+        end
+        it 'puts a [*] before the selected text' do
+          visit new_discussion_post_path(@discussion)
+          fill_in "post_body", with: 'Hello World'
+          page.execute_script %Q{ $('#post_body').select() } 
+          within "#toolbar" do
+            click_link '[*]'
+          end
+          find("#post_body")[:value].should eq "[*] Hello World"
+        end
+      end #list item
+      describe 'img'
+      describe 'url'
+      describe 'bigimg'
+      describe 'spoiler'
     end # reply
-    
-    
   end #toolbar
 end
