@@ -18,6 +18,12 @@ test:
   pool: 5
   timeout: 5000
 
+mysql:
+  adapter: mysql2
+  database: the_arcadians_test
+  username: root
+  encoding: utf8
+
 production:
   adapter: sqlite3
   database: db/production.sqlite3
