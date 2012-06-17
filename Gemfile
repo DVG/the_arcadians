@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.0'
 gem 'sqlite3'
-gem 'mysql2'
 gem 'jquery-rails'
 gem 'capistrano'
 gem 'jquery-rails'
@@ -28,7 +27,6 @@ group :test do
   gem 'ruby_gntp'
   gem 'timecop'
 end
-gem 'debugger', group: [:development, :test]
 group :production do
   gem 'mysql2'
 end
