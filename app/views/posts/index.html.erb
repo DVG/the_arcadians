@@ -16,14 +16,16 @@
     </tbody>
   <table>
 </div>
-<div id="quick_reply">
-  <div class="page-header"><h3>Quick Reply</h3></div>
-  <%= render 'toolbar' %>
+<% if permitted_to? :create, Post.new %>
+  <div id="quick_reply">
+    <div class="page-header"><h3>Quick Reply</h3></div>
+    <%= render 'toolbar' %>
 
-  <%= form_for [@discussion, @post], remote: true, :html => { :class => 'form-horizontal' } do |f| %>
-    <%= f.text_area :body, :class => 'span12 short_text_area' %>
-    <div class="form-actions">
-      <%= f.submit 'Post Reply', :class => 'btn btn-primary' %>
-    </div>
-  <% end %>
-</div>
+    <%= form_for [@discussion, @post], remote: true, :html => { :class => 'form-horizontal' } do |f| %>
+      <%= f.text_area :body, :class => 'span12 short_text_area' %>
+      <div class="form-actions">
+        <%= f.submit 'Post Reply', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -25,7 +25,10 @@ describe "Users" do
       visit forum_discussions_path(@discussion)
       page.should_not have_link 'New Thread'
     end
-    it 'does not show the quick reply section for a guest'
+    it 'does not show the quick reply section for a guest' do
+      visit discussion_posts_path(@discussion)
+      page.should_not have_selector "div#quick_reply"
+    end
     it 'does not allow a guest to reply'
   end
   context 'registered' do
