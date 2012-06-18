@@ -364,10 +364,96 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[*] Hello World"
         end
       end #list item
-      describe 'img'
-      describe 'url'
-      describe 'bigimg'
-      describe 'spoiler'
+      describe 'img' do
+      it 'shows a img button' do
+         visit discussion_posts_path(@discussion)
+         within "#toolbar" do
+           page.should have_link 'img'
+         end
+       end
+       it 'inserts [img] tags into the text area' do
+         visit discussion_posts_path(@discussion)
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should match /[img]*.[\/img]/
+       end
+       it 'wraps the selected text in [img] tags' do
+         visit discussion_posts_path(@discussion)
+         fill_in "post_body", with: 'Hello World'
+         page.execute_script %Q{ $('#post_body').select() } 
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should eq "[img]Hello World[/img]"
+       end
+      end # img
+      describe 'url' do
+        it 'shows a url button' do
+           visit discussion_posts_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'url'
+           end
+         end
+         it 'wraps the provided url in [url] tags' do
+           visit discussion_posts_path(@discussion)
+            within "#toolbar" do
+              click_link 'url'
+            end
+            prompt = page.driver.browser.switch_to.alert
+            prompt.send_keys('http://www.google.com')
+            prompt.accept
+            find("#post_body")[:value].should eq "[url]http://www.google.com[/url]"
+         end
+      end #url
+      describe 'bigimg' do
+        it 'shows a img button' do
+           visit discussion_posts_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'bigimg'
+           end
+         end
+         it 'inserts [bigimg] tags into the text area' do
+           visit discussion_posts_path(@discussion)
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should match /[bigimg]*.[\/bigimg]/
+         end
+         it 'wraps the selected text in [bigimg] tags' do
+           visit discussion_posts_path(@discussion)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should eq "[bigimg]Hello World[/bigimg]"
+         end
+      end # big img
+      describe 'spoiler' do
+        it 'shows a spoiler button' do
+           visit discussion_posts_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'spoiler'
+           end
+         end
+         it 'inserts [spoiler] tags into the text area' do
+           visit discussion_posts_path(@discussion)
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should match /[spoiler]*.[\/spoiler]/
+         end
+         it 'wraps the selected text in [spoiler] tags' do
+           visit discussion_posts_path(@discussion)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should eq "[spoiler]Hello World[/spoiler]"
+         end
+      end
       
     end #quick reply
     
@@ -533,10 +619,96 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[*] Hello World"
         end
       end #list item
-      describe 'img'
-      describe 'url'
-      describe 'bigimg'
-      describe 'spoiler'
+      describe 'img' do
+      it 'shows a img button' do
+         visit new_forum_discussion_path(@forum)
+         within "#toolbar" do
+           page.should have_link 'img'
+         end
+       end
+       it 'inserts [img] tags into the text area' do
+         visit new_forum_discussion_path(@forum)
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should match /[img]*.[\/img]/
+       end
+       it 'wraps the selected text in [img] tags' do
+         visit new_forum_discussion_path(@forum)
+         fill_in "post_body", with: 'Hello World'
+         page.execute_script %Q{ $('#post_body').select() } 
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should eq "[img]Hello World[/img]"
+       end
+      end # img
+      describe 'url' do
+        it 'shows a url button' do
+           visit new_forum_discussion_path(@forum)
+           within "#toolbar" do
+             page.should have_link 'url'
+           end
+         end
+         it 'wraps the provided url in [url] tags' do
+           visit new_forum_discussion_path(@forum)
+            within "#toolbar" do
+              click_link 'url'
+            end
+            prompt = page.driver.browser.switch_to.alert
+            prompt.send_keys('http://www.google.com')
+            prompt.accept
+            find("#post_body")[:value].should eq "[url]http://www.google.com[/url]"
+         end
+      end #url
+      describe 'bigimg' do
+        it 'shows a img button' do
+           visit new_forum_discussion_path(@forum)
+           within "#toolbar" do
+             page.should have_link 'bigimg'
+           end
+         end
+         it 'inserts [bigimg] tags into the text area' do
+           visit new_forum_discussion_path(@forum)
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should match /[bigimg]*.[\/bigimg]/
+         end
+         it 'wraps the selected text in [bigimg] tags' do
+           visit new_forum_discussion_path(@forum)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should eq "[bigimg]Hello World[/bigimg]"
+         end
+      end # big img
+      describe 'spoiler' do
+        it 'shows a spoiler button' do
+           visit new_forum_discussion_path(@forum)
+           within "#toolbar" do
+             page.should have_link 'spoiler'
+           end
+         end
+         it 'inserts [spoiler] tags into the text area' do
+           visit new_forum_discussion_path(@forum)
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should match /[spoiler]*.[\/spoiler]/
+         end
+         it 'wraps the selected text in [spoiler] tags' do
+           visit new_forum_discussion_path(@forum)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should eq "[spoiler]Hello World[/spoiler]"
+         end
+      end #spoiler
       
     end # new thread
     
@@ -702,10 +874,96 @@ describe "Posts" do
           find("#post_body")[:value].should eq "[*] Hello World"
         end
       end #list item
-      describe 'img'
-      describe 'url'
-      describe 'bigimg'
-      describe 'spoiler'
+      describe 'img' do
+      it 'shows a img button' do
+         visit new_discussion_post_path(@discussion)
+         within "#toolbar" do
+           page.should have_link 'img'
+         end
+       end
+       it 'inserts [img] tags into the text area' do
+         visit new_discussion_post_path(@discussion)
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should match /[img]*.[\/img]/
+       end
+       it 'wraps the selected text in [img] tags' do
+         visit new_discussion_post_path(@discussion)
+         fill_in "post_body", with: 'Hello World'
+         page.execute_script %Q{ $('#post_body').select() } 
+         within "#toolbar" do
+           click_link 'img'
+         end
+         find("#post_body")[:value].should eq "[img]Hello World[/img]"
+       end
+      end # img
+      describe 'url' do
+        it 'shows a url button' do
+           visit new_discussion_post_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'url'
+           end
+         end
+         it 'wraps the provided url in [url] tags' do
+           visit new_discussion_post_path(@discussion)
+            within "#toolbar" do
+              click_link 'url'
+            end
+            prompt = page.driver.browser.switch_to.alert
+            prompt.send_keys('http://www.google.com')
+            prompt.accept
+            find("#post_body")[:value].should eq "[url]http://www.google.com[/url]"
+         end
+      end #url
+      describe 'bigimg' do
+        it 'shows a img button' do
+           visit new_discussion_post_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'bigimg'
+           end
+         end
+         it 'inserts [bigimg] tags into the text area' do
+           visit new_discussion_post_path(@discussion)
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should match /[bigimg]*.[\/bigimg]/
+         end
+         it 'wraps the selected text in [bigimg] tags' do
+           visit new_discussion_post_path(@discussion)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'bigimg'
+           end
+           find("#post_body")[:value].should eq "[bigimg]Hello World[/bigimg]"
+         end
+      end # big img
+      describe 'spoiler' do
+        it 'shows a spoiler button' do
+           visit new_discussion_post_path(@discussion)
+           within "#toolbar" do
+             page.should have_link 'spoiler'
+           end
+         end
+         it 'inserts [spoiler] tags into the text area' do
+           visit new_discussion_post_path(@discussion)
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should match /[spoiler]*.[\/spoiler]/
+         end
+         it 'wraps the selected text in [spoiler] tags' do
+           visit new_discussion_post_path(@discussion)
+           fill_in "post_body", with: 'Hello World'
+           page.execute_script %Q{ $('#post_body').select() } 
+           within "#toolbar" do
+             click_link 'spoiler'
+           end
+           find("#post_body")[:value].should eq "[spoiler]Hello World[/spoiler]"
+         end
+      end #spoiler
     end # reply
   end #toolbar
 end
