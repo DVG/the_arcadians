@@ -1,5 +1,5 @@
 <div class="page-header"><h1><%= @forum.title %></h1></div>
-<%= link_to "New Thread", new_forum_discussion_path, :class => 'btn btn-primary' %>
+<%= link_to "New Thread", new_forum_discussion_path, :class => 'btn btn-primary' if permitted_to? :create, Post.new %>
 <ul>
   <% @discussions.each do |d| %>
     <%= content_tag_for(:li, d) do %>

@@ -16,7 +16,15 @@ describe "Users" do
     end
   end
   context "guest" do
-    it 'does not allow guests to make new threads'
+    before :each do
+      @forum = create(:forum)
+      @discussion = create(:discussion)
+      @post = create(:post, discussion: @discussion)
+    end
+    it 'does not show a new thread button for a guest' do
+      visit forum_discussions_path(@discussion)
+      page.should_not have_link 'New Thread'
+    end
     it 'does not show the quick reply section for a guest'
     it 'does not allow a guest to reply'
   end

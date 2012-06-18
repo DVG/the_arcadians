@@ -4,12 +4,14 @@ authorization do
   role :moderator do
   end
   role :registered do
+    has_permission_on [:posts], to: :create
   end
   role :jailed do
   end
   role :banned do
   end
   role :guest do
+    has_permission_on [:posts], to: :read
   end
 end
 privileges do
