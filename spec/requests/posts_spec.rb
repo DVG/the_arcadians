@@ -169,6 +169,7 @@ describe "Posts" do
       #accept the alert
       alert = page.driver.browser.switch_to.alert
       alert.accept
+      sleep 1
       }.to change(Post, :count).by(-1)
     end #destroy the post
     it 'the discussion should remain intact' do
