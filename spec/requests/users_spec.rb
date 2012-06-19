@@ -29,12 +29,18 @@ describe "Users" do
       visit discussion_posts_path(@discussion)
       page.should_not have_selector "div#quick_reply"
     end
-    it 'does not allow a guest to reply'
+    it 'does not allow a guest to reply' do
+      visit new_discussion_post_path(@discussion)
+      current_path.should eq root_path
+      page.should have_content "Sorry, you not allowed to access that page."
+    end
   end
   context 'registered' do
     before :each do
       @user = create(:user, role: create(:registered_role))
       @forum = create(:forum)
+      @discussion = create(:discussion)
+      @post = create(:post, discussion: @discussion)
       visit new_user_session_path
       fill_in 'user_username', with: @user.username
       fill_in 'user_password', with: @user.password
@@ -49,6 +55,22 @@ describe "Users" do
       within "#discussion_title" do
         page.should have_content "New Post"
       end
+    end
+    it 'shows the quick reply section for the registered user' do
+      visit discussion_posts_path(@discussion)
+      page.should have_selector "div#quick_reply"
+    end
+    it 'allows the user to make a quick reply' do
+      visit discussion_posts_path(@discussion)
+      fill_in 'post_body', with: "Hi there, I'm a quick reply"
+      click_button 'Post Reply'
+      page.should have_content "Hi there, I'm a quick reply"
+    end
+    it 'allows the user to make a normal reply' do
+      visit new_discussion_post_path(@discussion)
+      fill_in 'post_body', with: "Hi there, I'm a normal reply"
+      click_button 'Post Reply'
+      page.should have_content "Hi there, I'm a normal reply"
     end
     context 'replies' do
       before :each do

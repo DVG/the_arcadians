@@ -1,5 +1,5 @@
 TheArcadians::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   resources :forums, :only => [:index, :show] do
     resources :discussions, :only => [:index, :new, :create]
   end

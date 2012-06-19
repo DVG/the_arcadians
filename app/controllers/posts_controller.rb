@@ -1,4 +1,7 @@
 class PostsController < ApplicationController  
+  
+  filter_access_to :new
+  
   def index
     @discussion = Discussion.find(params[:discussion_id])
     @posts = @discussion.posts
