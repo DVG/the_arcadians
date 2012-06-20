@@ -2,6 +2,8 @@
   <td>
    <div class="author_cell">
      <span class="author"><%= post.user.username %></span><br />
+     <br />
+     <%= content_tag(:span, :class => 'badge badge-info', :id => 'role_badge') { post.user.role.name }  if post.user.display_role? %>
    </div>
   </td>
   <td>

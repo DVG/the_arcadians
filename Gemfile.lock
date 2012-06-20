@@ -80,6 +80,7 @@ GEM
       thor (>= 0.14.6)
     guard-rspec (1.0.0)
       guard (>= 1.1)
+    high_voltage (1.1.1)
     highline (1.6.12)
     hike (1.2.1)
     htmlentities (4.3.1)
@@ -224,6 +225,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   guard-rspec
+  high_voltage
   htmlentities
   jquery-rails
   mysql2

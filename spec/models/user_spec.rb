@@ -43,4 +43,18 @@ describe User do
     user = create(:user, role: create(:registered_role))
     user.role_symbols.should eq [:registered]
   end
+  context 'display role?' do
+    it 'returns false if registered' do
+      user = create(:user, role: create(:registered_role))
+      user.display_role?.should eq false
+    end
+    it 'returns true if a moderator' do
+      user = create(:user, role: create(:moderator_role))
+      user.display_role?.should eq true
+    end
+    it 'returns true if a admin' do
+      user = create(:user, role: create(:admin_role))
+      user.display_role?.should eq true
+    end
+  end
 end

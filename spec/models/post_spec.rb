@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Post do
-  it 'should return the title of the post' do
-    post = FactoryGirl.create(:post, title: 'Hello World')
-    post.title.should eq 'Hello World'
-  end
   it 'should return the body of the post' do
     post = FactoryGirl.create(:post, body: 'Didactically speaking, seminal evidence seams to explicate that your repudation for entropy supprts my theory of space-time synthesis. Of this I am irrefutably confident.')
     post.body.should eq "Didactically speaking, seminal evidence seams to explicate that your repudation for entropy supprts my theory of space-time synthesis. Of this I am irrefutably confident."

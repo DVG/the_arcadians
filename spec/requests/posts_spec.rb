@@ -97,16 +97,48 @@ describe "Posts" do
     it 'displays the user who made the post'
     it 'displays the user who made the post\'s avatar'
     context 'Registered User' do
-      it 'does not display a role badge'
+      it 'does not display a role badge' do
+        visit discussion_posts_path(@discussion)
+        within "#post_#{@post.id}" do
+          page.should_not have_selector "#role_badge"
+        end
+      end
     end
     context 'Moderator' do
-      it 'displays a badge titled \'Moderator\' under the user\'s name'
+      it 'displays a badge titled \'Moderator\' under the user\'s name' do
+        moderator_post = create(:post, discussion: @discussion, user: create(:user, role: create(:moderator_role)))
+        visit discussion_posts_path(@discussion)
+        within "#post_#{moderator_post.id}" do
+          page.should have_selector "span#role_badge"
+          within "#role_badge" do
+            page.should have_content "moderator"
+          end
+        end
+      end
     end
     context 'Admin' do
-      it 'displays a badge titled \'Admin\' under the user\'s name'
+      it 'displays a badge titled \'Admin\' under the user\'s name' do
+        admin_post = create(:post, discussion: @discussion, user: create(:user, role: create(:admin_role)))
+        visit discussion_posts_path(@discussion)
+        within "#post_#{admin_post.id}" do
+          page.should have_selector "span#role_badge"
+          within "#role_badge" do
+            page.should have_content "admin"
+          end
+        end
+      end
     end
     context 'Jailed' do
-      it 'displays a badge titled \'Jailed\' under the user\'s name'
+      it 'displays a badge titled \'Jailed\' under the user\'s name' do
+        jailed_post = create(:post, discussion: @discussion, user: create(:user, role: create(:jailed_role)))
+        visit discussion_posts_path(@discussion)
+        within "#post_#{jailed_post.id}" do
+          page.should have_selector "span#role_badge"
+          within "#role_badge" do
+            page.should have_content "jailed"
+          end
+        end
+      end
     end
     context 'Buttons' do
       it 'has a quote button'

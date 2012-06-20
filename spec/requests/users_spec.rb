@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# This specification will test all the authorizations in place for the different user roles
+
 describe "Users" do
   context 'basic login' do
     before :each do
@@ -164,7 +166,13 @@ describe "Users" do
          page.should have_content 'Quick Reply'
        end # within
      end # it
-    context 'read'
+     
+    context 'read' do
+      it 'allows a user to view the forum list'
+      it 'allows a user to view a given forum\'s list of disucssions'
+      it 'allows a user to view the posts on a given discussion'
+    end
+    
     context 'update' do
       it 'shows the edit link for a users own post' do
         visit discussion_posts_path(@discussion)
@@ -204,32 +212,37 @@ describe "Users" do
     end
     
     context 'delete' do
-      it 'should have a delete link for their own post' do
-        visit discussion_posts_path(@discussion)
-        within "#post_#{@post.id}" do
-          page.should have_link "X"
-        end # within
-      end
-      it 'should not have a delete link for another users post' do
-        another_post = create(:post, forum: @forum, discussion: @discussion)
-        visit discussion_posts_path(@discussion)
-         within "#post_#{another_post.id}" do
-            page.should_not have_link "X"
-          end # within
-      end
-      it 'should be able to delete their own post' do
-        expect {
+      context 'forums'
+      context 'discussions'
+      context 'posts' do
+        it 'should have a delete link for their own post' do
           visit discussion_posts_path(@discussion)
           within "#post_#{@post.id}" do
-            click_link "X"
+            page.should have_link "X"
           end # within
-          page.should_not have_selector "#post_#{@post.id}"
-        }.to change(Post, :count).by(-1)
+        end
+        it 'should not have a delete link for another users post' do
+          another_post = create(:post, forum: @forum, discussion: @discussion)
+          visit discussion_posts_path(@discussion)
+           within "#post_#{another_post.id}" do
+              page.should_not have_link "X"
+            end # within
+        end
+        it 'should be able to delete their own post' do
+          expect {
+            visit discussion_posts_path(@discussion)
+            within "#post_#{@post.id}" do
+              click_link "X"
+            end # within
+            page.should_not have_selector "#post_#{@post.id}"
+          }.to change(Post, :count).by(-1)
+        end
       end
     end
     
   end # registered
   
+  context 'moderator'
   
   context 'admin' do
     before :each do
@@ -317,4 +330,8 @@ describe "Users" do
       }.to change(Post, :count).by(-1)
     end
   end # admin
+
+  context 'jailed'
+  
+  context 'banned'
 end #describe

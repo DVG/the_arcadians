@@ -17,4 +17,12 @@ class User < ActiveRecord::Base
   def role_symbols
     [self.role.name.to_sym]
   end
+  
+  def display_role?
+    if ["registered"].include? self.role.name
+      false
+    else
+      true
+    end
+  end
 end
