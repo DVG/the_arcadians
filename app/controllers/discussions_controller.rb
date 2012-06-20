@@ -1,4 +1,6 @@
 class DiscussionsController < ApplicationController
+  filter_access_to :new, :create
+  
   def index
     @forum = Forum.find(params[:forum_id])
     @discussions = @forum.discussions

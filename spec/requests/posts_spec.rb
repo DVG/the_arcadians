@@ -163,7 +163,7 @@ describe "Posts" do
     it 'destroys the post' do
       visit discussion_posts_path(@discussion)
       expect {
-      within "#post_#{@post_two.id}" do
+      within "#post_#{@post.id}" do
         click_link 'X'
       end
       #accept the alert
@@ -174,7 +174,7 @@ describe "Posts" do
     end #destroy the post
     it 'the discussion should remain intact' do
       visit discussion_posts_path(@discussion)
-      within "#post_#{@post_two.id}" do
+      within "#post_#{@post.id}" do
         click_link 'X'
       end
       #accept the alert
@@ -184,14 +184,14 @@ describe "Posts" do
     end # discussion should remain intact
     it 'should slide up the post' do
       visit discussion_posts_path(@discussion)
-      within "#post_#{@post_two.id}" do
+      within "#post_#{@post.id}" do
         click_link 'X'
       end
       #accept the alert
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      find("#post_#{@post_two.id}").should_not be_visible
+      find("#post_#{@post.id}").should_not be_visible
     end #should slide up the post
   end
   

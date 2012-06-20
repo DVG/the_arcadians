@@ -1,4 +1,7 @@
 class ForumsController < ApplicationController
+  
+  filter_access_to :index, :show
+  
   def index
     @forums = Forum.all
   end

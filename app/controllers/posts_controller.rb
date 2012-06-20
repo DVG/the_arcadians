@@ -1,6 +1,7 @@
 class PostsController < ApplicationController  
   
-  filter_access_to :new
+  filter_access_to :new, :create
+  filter_access_to :edit, :update, :destroy, :attribute_check => true
   
   def index
     @discussion = Discussion.find(params[:discussion_id])
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
 
   def edit
     coder = HTMLEntities.new
-    @post = Post.find(params[:id])
+    # @post loaded by declarative authorization
     @post.body = coder.decode(@post.body)
     @discussion = @post.discussion
   end
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    # @post loaded by declarative authorization
       if @post.update_attributes(params[:post])
         redirect_to discussion_posts_path(@post.discussion), notice: 'Post was successfully updated.'
       else
@@ -51,7 +52,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    # @post loaded by declarative authorization
     @discussion = @post.discussion
     @post.destroy
     respond_to do |format|
