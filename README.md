@@ -1,6 +1,7 @@
 # Welcome to the Arcadians Open Source Forum Project
 
 [![Build Status](https://secure.travis-ci.org/DVG/the_arcadians.png)](http://travis-ci.org/DVG/the_arcadians)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/DVG/the_arcadians)
 
 The goal of this project is to get off of PHPBB3, which is a pain to maintain, to something more modern.
 
