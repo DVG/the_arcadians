@@ -1,3 +1,14 @@
+<ul class ="breadcrumb" id="breadcrumbs">
+  <li>
+    <%= link_to forums_path do %>
+      TheArcadians.net Forums 
+    <% end %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= @forum.title %>
+  </li>
+</ul>
 <div class="page-header"><h1><%= @forum.title %></h1></div>
 <%= link_to "New Thread", new_forum_discussion_path, :class => 'btn btn-primary' if permitted_to? :create, Post.new %>
 <ul>

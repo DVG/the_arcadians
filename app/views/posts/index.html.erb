@@ -1,3 +1,18 @@
+<ul class ="breadcrumb" id="breadcrumbs">
+  <li>
+    <%= link_to forums_path do %>
+      TheArcadians.net Forums 
+    <% end %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to @discussion.forum.title, forum_discussions_path(@discussion.forum) %> <span class="divider">/</span>
+  </li>
+  <li>
+    <%= @discussion.title %>
+  </li>
+</ul>
+
 <div class="page-header"><h1 id="discussion_title"><%= @discussion.title %></h1></div>
 
 <%= link_to "Reply", new_discussion_post_path(@discussion), :class => 'btn btn-primary' if permitted_to? :create, Post.new %>
