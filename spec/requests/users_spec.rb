@@ -54,6 +54,10 @@ describe "Users" do
             current_path.should eq root_path
             page.should have_content "Sorry, you not allowed to access that page."
           end #it
+          it 'does not show the Reply button for a guest' do
+            visit discussion_posts_path(@discussion)
+            page.should_not have_link 'Reply'
+          end
         end #normal reply
       end #replies
       
@@ -99,6 +103,15 @@ describe "Users" do
         end #within
       end
     end #describe
+    
+    describe 'quote' do
+      it 'should not display the quote link' do
+        visit discussion_posts_path(@discussion)
+        within "#post_#{@post.id}" do
+          page.should_not have_link 'Quote'
+        end #within
+      end
+    end
     
   end #guest
   
@@ -168,9 +181,20 @@ describe "Users" do
      end # it
      
     context 'read' do
-      it 'allows a user to view the forum list'
-      it 'allows a user to view a given forum\'s list of disucssions'
-      it 'allows a user to view the posts on a given discussion'
+      it 'should be able to access the forums page' do
+        visit forums_path
+        page.should_not have_content "Sorry, you not allowed to access that page."
+      end
+      it 'should be able to view the discussions on a given forum' do
+        visit forum_discussions_path(@forum)
+        current_path.should eq forum_discussions_path(@forum)
+        page.should_not have_content "Sorry, you not allowed to access that page."
+      end
+      it 'should be able to view the posts on a given discussion' do
+        visit discussion_posts_path (@discussion)
+        current_path.should eq discussion_posts_path (@discussion)
+        page.should_not have_content "Sorry, you not allowed to access that page."
+      end
     end
     
     context 'update' do

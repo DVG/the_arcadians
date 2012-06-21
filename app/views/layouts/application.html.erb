@@ -24,9 +24,9 @@
 
     <div class="container">
       <% flash.each do |name, msg| %>
-		    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+		    <div class="alert alert-<%= name == :notice ? "success" : "error" %>" id="alerts" >
 					<a class="close" data-dismiss="alert" href="#">×</a>
-		      <%= msg  %>
+		       <%= msg  %>
 		    </div>
 		  <% end %>
       <div class="content">

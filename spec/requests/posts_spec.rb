@@ -1,5 +1,10 @@
 require 'spec_helper'
 
+# TODO: Pagination
+# TODO: Avatar
+# TODO: Report Post
+# TODO: Textarea focus
+
 describe "Posts" do
   before :each do
     @user = create(:user)
@@ -88,14 +93,14 @@ describe "Posts" do
     end
   end
   
-  context 'pagination' do
-    it 'displays 50 posts per page'
-    it 'redirects the user to the last page after a reply is made'
-  end
-  
   context 'Post Details' do
-    it 'displays the user who made the post'
-    it 'displays the user who made the post\'s avatar'
+    it 'displays the user who made the post' do
+      visit discussion_posts_path(@discussion)
+      within "#post_#{@post.id}" do
+        page.should have_content @post.user.username
+      end
+    end    
+    
     context 'Registered User' do
       it 'does not display a role badge' do
         visit discussion_posts_path(@discussion)
@@ -141,7 +146,12 @@ describe "Posts" do
       end
     end
     context 'Buttons' do
-      it 'has a quote button'
+      it 'has a quote button' do
+       visit discussion_posts_path(@discussion)
+        within "#post_#{@post.id}" do
+          page.should have_link "Quote"
+        end
+      end
       it 'has an edit button' do
         visit discussion_posts_path(@discussion)
         within "#post_#{@post.id}" do
@@ -154,7 +164,6 @@ describe "Posts" do
           page.should have_link "X"
         end
       end
-      it 'has a report button'
     end
   end
   
@@ -186,7 +195,6 @@ describe "Posts" do
       end
       find("#post_body")[:value].should include "\n\n"
     end
-    it 'gives focus to the post_body textarea'
   end
   
   context 'Edit'

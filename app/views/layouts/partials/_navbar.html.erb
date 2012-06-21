@@ -6,7 +6,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <%= link_to 'TheArcadians', root_path, :class => 'brand' %>
+      <%= link_to root_path, :class => 'brand' do %>
+        <%= image_tag 'logo.png' %>
+      <% end %>
       <div class="container nav-collapse">
         <ul class="nav">
           <li><%= link_to "Forums", forums_path  %></li>

@@ -1,5 +1,5 @@
 @import "twitter/bootstrap/bootstrap";
-body { padding-top: 60px; }
+body { padding-top: 70px; }
 
 @import "twitter/bootstrap/responsive";
 
@@ -17,6 +17,32 @@ body { padding-top: 60px; }
 // Font Awesome
 @import "fontawesome";
 
+// Navbar
+// -------------------------
+@navbarHeight:                    45px;
+@navbarBackground:                @blueDark;
+@navbarBackgroundHighlight:       @blue;
+
+@navbarText:                      @white;
+@navbarLinkColor:                 @white;
+@navbarLinkColorHover:            @grayLighter;
+@navbarLinkColorActive:           @navbarLinkColorHover;
+@navbarLinkBackgroundHover:       transparent;
+@navbarLinkBackgroundActive:      @navbarBackground;
+
+@navbarSearchBackground:          lighten(@navbarBackground, 25%);
+@navbarSearchBackgroundFocus:     @white;
+@navbarSearchBorder:              darken(@navbarSearchBackground, 30%);
+@navbarSearchPlaceholderColor:    #ccc;
+@navbarBrandColor:                @navbarLinkColor;
+
+.navbar .nav { height: @navbarHeight; }
+.navbar .nav > li > a { 
+  padding: 25px 10px 35px; 
+  font-size: 16px;
+  }
+.navbar .brand { padding: (((@navbarHeight - 20) / 2) * 0.8) 20px (((@navbarHeight - 20) / 2) * 1.2); }
+.navbar .divider-vertical { height: 70px; }
 footer {
   padding-top: 10px
 }
@@ -37,4 +63,8 @@ footer {
     border-color: #ddd;
     border-color: rgba(0,0,0,.15);
   }
+}
+
+#alerts {
+  margin-top: 15px;
 }
