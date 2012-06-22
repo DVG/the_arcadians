@@ -1,0 +1,43 @@
+require 'spec_helper'
+
+describe Message do
+  it 'should have a subject' do
+    m = create(:message, subject: 'Winter is Coming')
+    m.subject.should eq 'Winter is Coming'
+  end
+  it 'should have a body' do
+    m = create(:message, body: 'Winter is Coming')
+    m.body.should eq 'Winter is Coming'
+  end
+  it 'should have a sender' do
+    sender = create(:user)
+    m = create(:message, sender: sender)
+    m.sender.should eq sender
+  end
+  it 'should have a recipient' do
+    recipient = create(:user)
+    m = create(:message, recipient: recipient)
+    m.recipient.should eq recipient
+  end
+  it 'should be invalid without a subject' do
+    m = build(:message, subject: nil)
+    m.should_not be_valid
+  end
+  it 'should be invalid without a body' do
+    m = build(:message, body: nil)
+    m.should_not be_valid
+  end
+  it 'should be invalid without a recipient' do
+    m = build(:message, recipient: nil)
+    m.should_not be_valid
+  end
+  it 'should be marked as read or unread' do
+    m = create(:message)
+    m.read?.should be_false
+  end
+  it 'should mark the message as read' do
+    m = create(:message)
+    m.mark_read
+    m.read?.should be_true
+  end
+end

@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :posts
-  has_many :discussions
+  has_many   :posts
+  has_many   :discussions
   belongs_to :role
+  has_many   :recieved_messages, :class_name => 'Message',
+             :foreign_key => 'recipient_id'
+  has_many   :sent_messages, :class_name => 'Message',
+             :foreign_key => 'sender_id'
   validates_uniqueness_of :email
   validates_presence_of :username
   validates_uniqueness_of :username

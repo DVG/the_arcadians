@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612154831) do
+ActiveRecord::Schema.define(:version => 20120622010351) do
 
   create_table "discussions", :force => true do |t|
     t.string   "title"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(:version => 20120612154831) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "posts_counter", :default => 0
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "read"
   end
 
   create_table "posts", :force => true do |t|

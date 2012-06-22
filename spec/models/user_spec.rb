@@ -57,4 +57,18 @@ describe User do
       user.display_role?.should eq true
     end
   end
+  
+  context 'Private Messages' do
+    before :each do
+      @user = create(:user)
+      @message = create(:message, recipient: @user)
+      @sent_message = create(:message, sender: @user)
+    end
+    it 'returns a list of messages sent to the user' do
+      @user.recieved_messages.should eq [@message]
+    end
+    it 'returns a list of messages sent by the user' do
+      @user.sent_messages.should eq [@sent_message]
+    end
+  end
 end

@@ -5,7 +5,7 @@ FactoryGirl.define do
   sequence :username do |u|
     "user_#{u}"
   end
-  factory :user do
+  factory :user, :aliases => [:sender, :recipient] do
     email
     username
     password 'secret'
