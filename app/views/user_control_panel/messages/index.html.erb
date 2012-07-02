@@ -1,0 +1,20 @@
+<% content_for :sidebar do %>
+  <% ucp_tab(:inbox)%>
+  <%= render 'messages_sidebar' %>
+<% end %>
+
+<table class="table table-striped table-bordered table-condensed" id="messages_table">
+  <thead>
+    <th>Subject</th>
+    <th>Sender</th>
+    <th>Received</th>
+  </thead>
+  <tbody>
+    <%= content_tag_for(:tr, @messages) do |m| %>
+      <td><%= link_to m.subject, user_control_panel_message_path(m) %></td>
+      <% #TODO: link username to user profile %>
+      <td><%= link_to m.sender.username, '#' %></td>
+      <td><%= "#{time_ago_in_words m.created_at} ago"%>
+    <% end %>
+  </tbody>
+</table>

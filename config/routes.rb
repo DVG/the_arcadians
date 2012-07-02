@@ -1,5 +1,12 @@
 TheArcadians::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
+  namespace :user_control_panel do
+    resources :messages, :except => [:edit, :update] do
+      collection do
+        get 'sent'
+      end
+    end
+  end
   resources :forums, :only => [:index, :show] do
     resources :discussions, :only => [:index, :new, :create]
   end

@@ -13,3 +13,16 @@ The goal is not to rebuild PHPBB in Rails, but rather to implement the most impo
 2. Smileys
 3. BBCode Parser
 4. Community Event Calendar
+
+## Currently Complete
+1. Posting
+2. Some BBCode Parsing
+3. User authentication/authorization
+4. BBCode Toolbar in posting forms
+
+## Upcoming
+
+1. Private Messaging
+2. Round out BBCode
+3. Community Events
+4. Administrative Control Panel

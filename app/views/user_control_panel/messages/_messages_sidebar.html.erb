@@ -1,0 +1,13 @@
+<li class="nav-header">
+  Private Messages
+</li>
+<li<%= @ucp_tab == :inbox ? " class=active" : "" %>>
+  <%= link_to user_control_panel_messages_path do %>
+    <i class="icon-inbox"></i> Inbox
+  <% end %>
+</li>
+<li<%= @ucp_tab == :sent ? " class=active" : "" %>>
+  <%= link_to sent_user_control_panel_messages_path do %>
+    <i class="icon-share-alt"></i> Sent
+  <% end %>
+</li>

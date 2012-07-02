@@ -1,0 +1,27 @@
+<% content_for :sidebar do %>
+  <% ucp_tab(:inbox)%>
+  <% @message.recipient == current_user ? ucp_tab(:inbox) : ucp_tab(:sent) %>
+  <%= render 'messages_sidebar' %>
+<% end %>
+
+<table class="table table-striped table-bordered table-condensed" id="messages_table">
+  <thead>
+    <th width="20%">Sender</th>
+    <th>Message</th>
+  </thead>
+  <tbody>
+    <%= content_tag_for(:tr, @message) do %>
+      <td width="20%">
+       <div class="author_cell">
+         <span class="author"><%= @message.sender.username %></span><br />
+         <br />
+         <%= content_tag(:span, :class => 'badge badge-info', :id => 'role_badge') { @message.sender.role.name }  if @message.sender.display_role? %>
+       </div>
+      </td>
+      <td>
+        <div class="post-header"><%= @message.subject%></div>
+        <div class="post-body"><%= @message.body %></div>
+      </td>
+    <% end %>
+  </tbody>
+</table>
