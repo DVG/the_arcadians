@@ -70,5 +70,8 @@ describe User do
     it 'returns a list of messages sent by the user' do
       @user.sent_messages.should eq [@sent_message]
     end
+    it 'returns a count of unread messages' do
+      @user.unread_messages_count.should eq 1
+    end
   end
 end

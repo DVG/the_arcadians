@@ -10,6 +10,7 @@ class UserControlPanel::MessagesController < ApplicationController
   
   def show
     @message = Message.find(params[:id])
+    @message.mark_read
   end
   
   def new

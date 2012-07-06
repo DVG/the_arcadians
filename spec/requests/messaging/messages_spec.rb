@@ -39,12 +39,11 @@ describe 'Messages' do
         end
       end
       it 'should display how long ago the message was recieved' do
-        visit user_control_panel_messages_path
-        Timecop.freeze(Time.local(2012, 07, 02, 12, 0, 0))
-        puts "Time.now: #{Time.now}"
-        puts "Message Created At: #{@recieved_message.created_at}"
-        within "#message_#{@recieved_message.id}" do
-          page.should have_content '1 day ago'
+        Timecop.freeze(Time.local(2012, 07, 02, 12, 0, 0)) do
+          visit user_control_panel_messages_path
+          within "#message_#{@recieved_message.id}" do
+            page.should have_content '1 day ago'
+          end
         end
         Timecop.return
       end
@@ -52,8 +51,17 @@ describe 'Messages' do
         visit user_control_panel_message_path(@recieved_message)
         page.should have_content @recieved_message.body
       end
-      it 'should mark the message as read when viewing the message'
-      it 'should decrement the unread message count'
+      it 'should mark the message as read when viewing the message' do
+        @recieved_message.read?.should be_false
+        visit user_control_panel_message_path(@recieved_message)
+        @recieved_message.reload
+        @recieved_message.read?.should be_true
+      end
+      it 'should decrement the unread message count' do
+        @user.unread_messages_count.should eq 1
+        visit user_control_panel_message_path(@recieved_message)
+        @user.unread_messages_count.should eq 0
+      end
     end
     context 'sent' do
       before :each do

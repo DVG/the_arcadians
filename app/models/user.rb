@@ -29,4 +29,8 @@ class User < ActiveRecord::Base
       true
     end
   end
+  
+  def unread_messages_count
+    self.recieved_messages.where(:read => false).count
+  end
 end

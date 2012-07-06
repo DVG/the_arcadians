@@ -8,6 +8,9 @@ class Message < ActiveRecord::Base
   validates_presence_of :recipient
   
   def mark_read
-    self.read = true
+    unless self.read?
+      self.read = true
+      self.save!
+    end
   end
 end

@@ -40,4 +40,9 @@ describe Message do
     m.mark_read
     m.read?.should be_true
   end
+  it 'should not change a message that is already read' do
+    m = build(:message, read: true)
+    m.mark_read
+    m.read?.should be_true
+  end
 end

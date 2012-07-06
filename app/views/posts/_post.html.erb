@@ -8,7 +8,8 @@
   </td>
   <td>
     <div class="post-header">
-      <div class="post-title">
+      <div class="post-title pull-left">
+        <%= post.discussion.title %>
       </div>
       <div class="pull-right">
         <%= link_to "Quote", quote_post_path(post), :class => 'btn btn-mini',
