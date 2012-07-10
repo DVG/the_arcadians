@@ -79,8 +79,58 @@ describe 'Messages' do
     end
   end
   context 'create' do
-    it 'should allow a user to send a message to another user'
-    it 'should allow a user to reply to a message sent by another user'
+    before :each do
+      @other_user = create(:user)
+    end
+    it 'shows a new message button' do
+      visit user_control_panel_messages_path
+      page.should have_link 'New Private Message'
+    end
+    it 'shows the new message form with a to, subject and body fields' do
+      visit new_user_control_panel_message_path
+      page.should have_selector '#message_recipient'
+      page.should have_selector '#message_subject'
+      page.should have_selector '#message_body'
+    end
+    it 'should allow a user to send a message to another user' do
+      visit new_user_control_panel_message_path
+      fill_in 'message_recipient', :with => @other_user.username
+      fill_in 'message_subject', :with => "Hello World"
+      fill_in 'message_body', :with => "Yes, Hello Indeed"
+      click_button 'Send Message'
+      message = Message.last
+      @user.sent_messages.should include message
+      @other_user.recieved_messages.should include message
+    end 
+    it 'will increase the unread message count of the recipient by 1' do
+      @other_user.unread_messages_count.should eq 0
+      visit new_user_control_panel_message_path
+      fill_in 'message_recipient', :with => @other_user.username
+      fill_in 'message_subject', :with => "Hello World"
+      fill_in 'message_body', :with => "Yes, Hello Indeed"
+      click_button 'Send Message'
+      @other_user.unread_messages_count.should eq 1
+    end
+    context 'reply' do
+      before :each do
+        @message = create(:message, sender: @user, recipient: @other_user)
+      end
+      it 'should show a reply form below the message' do
+        visit user_control_panel_message_path(@message)
+        page.should have_selector "#reply_message_form"
+      end
+      it 'should prepend the original subject with \'RE: \'' do
+        visit user_control_panel_message_path(@message)
+        find("#message_subject").value.should eq "RE: #{@message.subject}"
+      end
+      it 'should set the original sender as the recipient' do
+        visit user_control_panel_message_path(@message)
+        find("#message_recipient").value.should eq @message.sender.username
+      end
+      it 'should allow a user to reply to the message'
+      it 'should set the original recipient as the sender'
+    end
+    
   end
   context 'delete' do
     it 'should allow a user to destroy a message'

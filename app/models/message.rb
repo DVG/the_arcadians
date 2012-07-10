@@ -13,4 +13,12 @@ class Message < ActiveRecord::Base
       self.save!
     end
   end
+  
+  def create_reply
+    r = Message.new
+    r.subject = "RE: #{self.subject}"
+    r.recipient = self.sender
+    r.sender = self.recipient
+    r
+  end
 end

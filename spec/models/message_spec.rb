@@ -45,4 +45,22 @@ describe Message do
     m.mark_read
     m.read?.should be_true
   end
+  context 'def create reply' do
+    before :each do
+      @m = build(:message)
+    end
+    it 'should create a message object' do
+      @m.create_reply.should be_kind_of Message
+    end
+    it 'should prepend the subject with RE: ' do
+      r = @m.create_reply
+      r.subject.should eq "RE: #{@m.subject}"
+    end
+    it 'should set the recipient to the original message sender' do
+      @m.create_reply.recipient.should eq @m.sender
+    end
+    it 'should set the sender to the original message recipient' do
+      @m.create_reply.sender.should eq @m.recipient
+    end
+  end
 end

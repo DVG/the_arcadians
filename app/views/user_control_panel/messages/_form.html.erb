@@ -1,0 +1,8 @@
+<%= simple_form_for [:user_control_panel, @message], :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :recipient, :label => 'To', :input_html => {:class => 'span8'} %>
+  <%= f.input :subject, :input_html => {:class => 'span8'}%>
+  <%= f.input :body, :input_html => {:class => 'span8'} %>
+  <div class="form-actions">
+    <%= f.submit 'Send Message', :class => 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -19,9 +19,20 @@
        </div>
       </td>
       <td>
-        <div class="post-header"><%= @message.subject%></div>
+        <div class="post-header"><%= @message.subject %></div>
         <div class="post-body"><%= @message.body %></div>
       </td>
     <% end %>
   </tbody>
 </table>
+
+<div id="reply_message_form">
+  <%= simple_form_for [:user_control_panel, @reply], :html => { :class => 'form-horizontal' } do |f| %>
+    <%= f.input :recipient, :label => 'To', :input_html => {:class => 'span7', :value => @reply.recipient.username } %>
+    <%= f.input :subject, :input_html => {:class => 'span7'}%>
+    <%= f.input :body, :input_html => {:class => 'span7'} %>
+    <div class="form-actions">
+      <%= f.submit 'Send Message', :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
