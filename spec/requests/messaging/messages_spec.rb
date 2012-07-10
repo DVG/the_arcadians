@@ -114,6 +114,7 @@ describe 'Messages' do
     context 'reply' do
       before :each do
         @message = create(:message, sender: @user, recipient: @other_user)
+        @other_message = create(:message, sender: @other_user, recipient: @user)
       end
       it 'should show a reply form below the message' do
         visit user_control_panel_message_path(@message)
@@ -127,8 +128,18 @@ describe 'Messages' do
         visit user_control_panel_message_path(@message)
         find("#message_recipient").value.should eq @message.sender.username
       end
-      it 'should allow a user to reply to the message'
-      it 'should set the original recipient as the sender'
+      it 'sends a reply to the original sender' do
+        visit user_control_panel_message_path(@other_message)
+        fill_in 'message_body', with: "Hey there"
+        click_button 'Send Message'
+        Message.last.recipient.should eq @other_message.sender
+      end
+      it 'should set the original recipient as the sender' do
+        visit user_control_panel_message_path(@other_message)
+        fill_in 'message_body', with: "Hey there"
+        click_button 'Send Message'
+        Message.last.sender.should eq @other_message.recipient
+      end
     end
     
   end
