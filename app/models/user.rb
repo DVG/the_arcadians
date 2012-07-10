@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  before_create :set_role
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
@@ -32,5 +34,12 @@ class User < ActiveRecord::Base
   
   def unread_messages_count
     self.recieved_messages.where(:read => false).count
+  end
+  
+  private
+  def set_role
+    if self.role.nil?
+      self.role = Role.find_by_name('registered')
+    end
   end
 end

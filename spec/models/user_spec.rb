@@ -43,6 +43,16 @@ describe User do
     user = create(:user, role: create(:registered_role))
     user.role_symbols.should eq [:registered]
   end
+  it 'should set a role of registered' do
+    r = create(:role, name: 'registered')
+    u = create(:user, role: nil)
+    u.role.should eq r
+  end
+  it 'should not override a different role' do
+    r = create(:role, name: 'admin')
+    u = create(:user, role: r)
+    u.role.should eq r
+  end
   context 'display role?' do
     it 'returns false if registered' do
       user = create(:user, role: create(:registered_role))
